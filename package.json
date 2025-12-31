@@ -1,0 +1,42 @@
+{
+  "name": "study-widget",
+  "version": "0.8.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "Rey",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.rey.studywidget",
+    "productName": "StudyWidget",
+    "files": [
+      "**/*",
+      "assets/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "assets",
+        "to": "assets",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/ghostie.ico"
+    },
+    "asarUnpack": [
+      "assets/**/*"
+    ]
+  }
+}

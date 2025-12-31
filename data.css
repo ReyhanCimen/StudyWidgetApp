@@ -1,0 +1,117 @@
+@font-face {
+  font-family: 'Scribbly';
+  src: url('assets/fonts/Scribblybold-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #e6e6e6;
+  font-family: 'Scribbly', sans-serif;
+  color: #111;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  -webkit-app-region: drag; /* 🔹 pencereyi sürüklenebilir yap */
+}
+
+.data-container {
+  width: 100%; /* 📏 pencere genişliğine sığsın */
+  max-width: 320px;
+  height: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+/* --- Header --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.month-title {
+  flex: 1;
+  text-align: center;
+  font-size: 22px;
+  font-weight: normal;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  font-family: 'Scribbly', sans-serif;
+  color: #111;
+  width: 32px;
+  -webkit-app-region: no-drag; /* 🔹 butonların tıklanabilir olması için */
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* --- Weekdays --- */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-top: 8px;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/* --- Calendar --- */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.day {
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+}
+
+.day.empty {
+  background: none;
+}
+
+.day .time {
+  font-size: 11px;
+  color: #222;
+  margin-top: 1px;
+}
+
+/* --- Footer --- */
+.footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.home-btn {
+  background: none;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-family: 'Scribbly', sans-serif;
+  font-size: 15px;
+  color: #111;
+  cursor: pointer;
+  visibility: visible; /* 👁️ her durumda görünür */
+  -webkit-app-region: no-drag; /* 🔹 butonun tıklanabilir olması için */
+}

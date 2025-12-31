@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study Widget</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="index">
+  <div class="window drag">
+    <img id="animation" class="anim-bg" alt="anim" src="assets/frames/frame1.png" />
+
+    <button id="btnClose" class="close no-drag">
+      <img src="assets/Close.png" alt="Close" />
+    </button>
+
+    <div class="content">
+      <div id="clock" class="clock">00:00:00</div>
+    </div>
+<div class="footer">
+  <!-- Today kısmı kaldırıldı -->
+  
+  <button id="btnData" class="data no-drag">
+    <img src="assets/Data.png" alt="Data" />
+  </button>
+
+  <button id="btnStart" class="start no-drag">
+    <img src="assets/Start.png" alt="Start" />
+  </button>
+</div>
+
+  </div>
+
+
+
+  <script src="renderer.js"></script>
+</body>
+</html>

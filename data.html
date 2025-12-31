@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study Data</title>
+  <link rel="stylesheet" href="data.css" />
+</head>
+<body data-page="data">
+  <div class="data-container">
+    <div class="header">
+      <button id="prevMonth" class="arrow">&lt;</button>
+      <div id="monthTitle" class="month-title">2025 October</div>
+      <button id="nextMonth" class="arrow">&gt;</button>
+    </div>
+
+    <div class="weekdays">
+      <div>M</div>
+      <div>T</div>
+      <div>W</div>
+      <div>T</div>
+      <div>F</div>
+      <div>S</div>
+      <div>S</div>
+    </div>
+
+    <div id="calendar" class="calendar"></div>
+
+    <div class="footer">
+      <button id="btnHome" class="home-btn">Back</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+</body>
+</html>
