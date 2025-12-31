@@ -9,4 +9,6 @@ I tried to keep the interface as simple as possible. There is nothing distractin
 It only shows a monthly data page that tracks how long I study, and a small study companion that works with me.
 
 <img width="406" height="308" alt="image" src="https://github.com/user-attachments/assets/32eaac01-3ea2-4966-8ec7-7bc1381932c0" />
+
+
 <img width="407" height="512" alt="Ekran görüntüsü 2025-12-31 193449" src="https://github.com/user-attachments/assets/4fe4b621-7357-4505-b695-83abca259ddd" />
