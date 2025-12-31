@@ -13,13 +13,9 @@ It only shows a **monthly data page** that tracks how long I study, and a small 
 
 ## Screenshots
 
-
-![Study Timer 1](https://github.com/user-attachments/assets/32eaac01-3ea2-4966-8ec7-7bc1381932c0)
+![Study Widget](https://github.com/user-attachments/assets/0f8814a1-bb78-49af-9214-5ad1dfb36d51)
 
 ![Study Timer 2](https://github.com/user-attachments/assets/4fe4b621-7357-4505-b695-83abca259ddd)
-
-![Study Timer 3](https://github.com/user-attachments/assets/9a4e32e1-a47b-490d-9faa-08cdc26632ae)
-
 
 
 ## Features
