@@ -1,7 +1,7 @@
 
-# Study Timer Application (Electron.js)
+# Study Timer Application (Electron)
 
-I created this study timer application using **Electron.js** because I was tired of timer apps on my phone that drain the battery.
+I created this study timer application using **Electron** because I was tired of timer apps on my phone that drain the battery.
 I wanted to build a small, calm study companion that sits quietly with me while I study.
 
 While the little companion studies in the corner, the timer keeps running in the background. You can **pause and restart the timer** whenever you want.
