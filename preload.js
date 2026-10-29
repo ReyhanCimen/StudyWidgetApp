@@ -10,6 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     const page = document.body.getAttribute('data-page');
     if (page === 'index') window.api?.resize(320, 240);
-    else if (page === 'data') window.api?.resize(320, 400);
+    else if (page === 'data' || page === 'stats') window.api?.resize(320, 400);
   }, 100);
 });

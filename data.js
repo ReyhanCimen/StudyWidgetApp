@@ -81,5 +81,15 @@ btnHome.addEventListener('click', () => {
   }
 });
 
+// Double-click the title to jump back to this month.
+monthTitle.addEventListener('dblclick', () => {
+  current = new Date();
+  renderCalendar();
+});
+
+document.getElementById('btnStats').addEventListener('click', () => {
+  window.api?.navigate?.('stats');
+});
+
 renderCalendar();
 

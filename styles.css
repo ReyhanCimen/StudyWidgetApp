@@ -83,5 +83,65 @@ margin-right: 10px;
 }
 
 
+/* --- Subject picker (top-left corner inside the frame) --- */
+.subject {
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  z-index: 3;
+}
+
+.subject-btn {
+  font: inherit;
+  font-size: 15px;
+  color: #111;
+  padding: 2px 4px;
+  opacity: 0.85;
+}
+.subject-btn:hover { opacity: 1; }
+
+.subject-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 120px;
+  max-height: 150px;
+  overflow-y: auto;
+  background: #e6e6e6;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 3px 0;
+  font-size: 14px;
+}
+.hidden { display: none; }
+
+.subject-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.subject-row:hover { background: #d8d8d8; }
+.subject-row.active .name { text-decoration: underline; }
+.subject-row .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.subject-row .name { flex: 1; }
+.subject-row .del { opacity: 0.35; padding: 0 2px; }
+.subject-row .del:hover { opacity: 1; }
+
+.subject-input {
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  color: #111;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 4px 8px 2px;
+}
+#subjectList:not(:empty) + .subject-input { border-top: 1px dashed #999; margin-top: 2px; }
+
 .drag { -webkit-app-region: drag; }
 .no-drag { -webkit-app-region: no-drag; }
+/* While the menu is open, let clicks on the background close it. */
+.window.menu-open { -webkit-app-region: no-drag; }

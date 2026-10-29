@@ -1,0 +1,75 @@
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 2px;
+}
+
+.view-toggle button {
+  background: none;
+  border: none;
+  padding: 0 2px;
+  font-family: 'Scribbly', sans-serif;
+  font-size: 15px;
+  color: #111;
+  opacity: 0.45;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+.view-toggle button:hover { opacity: 0.8; }
+.view-toggle button.active { opacity: 1; text-decoration: underline; }
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+  -webkit-app-region: no-drag; /* so hovering a dot shows its time */
+}
+
+.chart text {
+  font-family: 'Scribbly', sans-serif;
+  font-size: 10px;
+  fill: #111;
+}
+
+.chart .axis { stroke: #111; stroke-width: 1.5; stroke-linecap: round; }
+.chart .grid { stroke: #bbb; stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+
+.chart .hit { fill: transparent; cursor: default; }
+
+.data-container { position: relative; }
+
+.tip {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  white-space: nowrap;
+  background: #e6e6e6;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 12px;
+}
+.tip.hidden { display: none; }
+
+/* Fixed height so the Back button stays in the same place as on the calendar page. */
+.legend {
+  margin: 6px 12px 0;
+  height: 54px;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 14px;
+  -webkit-app-region: no-drag;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1px 0;
+}
+
+.legend-row .swatch { width: 18px; height: 6px; flex: none; overflow: visible; }
+.legend-row .total { margin-left: auto; font-variant-numeric: tabular-nums; }

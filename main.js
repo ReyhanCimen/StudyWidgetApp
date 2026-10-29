@@ -56,9 +56,9 @@ app.on('window-all-closed', () => {
 ipcMain.handle('window:navigate', (e, page) => {
   if (!win) return;
   win.setResizable(true); // 🔹 önce resize'a izin ver
-  if (page === 'data') {
+  if (page === 'data' || page === 'stats') {
     win.setContentSize(320, 400); // 🔹 setContentSize kullan
-    win.loadFile('data.html');
+    win.loadFile(page + '.html');
   } else if (page === 'index') {
     win.setContentSize(320, 240); // 🔹 setContentSize kullan
     win.loadFile('index.html');

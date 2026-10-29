@@ -11,6 +11,14 @@
   <div class="window drag">
     <img id="animation" class="anim-bg" alt="anim" src="assets/frames/frame1.png" />
 
+    <div id="subjectPicker" class="subject no-drag">
+      <button id="subjectBtn" class="subject-btn no-drag">+ subject</button>
+      <div id="subjectMenu" class="subject-menu no-drag hidden">
+        <div id="subjectList"></div>
+        <input id="subjectInput" class="subject-input" maxlength="16" placeholder="+ add subject" />
+      </div>
+    </div>
+
     <button id="btnClose" class="close no-drag">
       <img src="assets/Close.png" alt="Close" />
     </button>
@@ -34,6 +42,7 @@
 
 
 
+  <script src="store.js"></script>
   <script src="renderer.js"></script>
 </body>
 </html>

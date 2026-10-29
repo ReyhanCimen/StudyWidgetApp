@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study Graph</title>
+  <link rel="stylesheet" href="data.css" />
+  <link rel="stylesheet" href="stats.css" />
+</head>
+<body data-page="stats">
+  <div class="data-container">
+    <div class="header">
+      <button id="prevMonth" class="arrow">&lt;</button>
+      <div id="monthTitle" class="month-title">2025 October</div>
+      <button id="nextMonth" class="arrow">&gt;</button>
+    </div>
+
+    <div class="view-toggle">
+      <button data-view="week">week</button>
+      <button data-view="month">month</button>
+    </div>
+
+    <svg id="chart" class="chart" viewBox="0 0 300 220"></svg>
+    <div id="tip" class="tip hidden"></div>
+
+    <div id="legend" class="legend"></div>
+
+    <div class="footer">
+      <button id="btnBack" class="home-btn">Back</button>
+    </div>
+  </div>
+
+  <script src="store.js"></script>
+  <script src="stats.js"></script>
+</body>
+</html>
