@@ -60,3 +60,6 @@
 
 .legend-row .swatch { width: 18px; height: 6px; flex: none; overflow: visible; }
 .legend-row .total { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* Keep a little room between the graph and the Back button. */
+.footer { padding-top: 10px; }
