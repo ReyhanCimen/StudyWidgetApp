@@ -4,7 +4,7 @@ const legend = document.getElementById('legend');
 const viewButtons = document.querySelectorAll('.view-toggle button');
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const W = 300, H = 220;
+let W = 300, H = 220; // set to the graph's real size on each render (1 unit = 1px)
 const PAD = { left: 28, right: 8, top: 8, bottom: 18 };
 const HOUR = 3600 * 1000;
 const Y_MAX = 18;  // hours; the scale is always 0–18 so weeks are easy to compare
@@ -90,6 +90,13 @@ function render() {
 
   const series = buildSeries(dates);
 
+  // The subject list goes first; the graph then takes all the space that's left.
+  renderLegend(series);
+  const box = chart.getBoundingClientRect();
+  W = Math.round(box.width);
+  H = Math.round(box.height);
+  chart.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
   const x = (i) => PAD.left + (i / (n - 1)) * (W - PAD.left - PAD.right);
   const y = (ms) => H - PAD.bottom - (Math.min(ms / HOUR, Y_MAX) / Y_MAX) * (H - PAD.top - PAD.bottom);
 
@@ -143,8 +150,9 @@ function render() {
       });
     }
   }
+}
 
-  // Legend
+function renderLegend(series) {
   legend.innerHTML = '';
   for (const s of series) {
     const row = document.createElement('div');

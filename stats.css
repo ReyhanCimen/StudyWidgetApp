@@ -19,10 +19,12 @@
 .view-toggle button:hover { opacity: 0.8; }
 .view-toggle button.active { opacity: 1; text-decoration: underline; }
 
+/* The graph grows to fill whatever the other parts don't use. */
 .chart {
   display: block;
+  flex: 1 1 0;
+  min-height: 0;
   width: 100%;
-  height: auto;
   margin-top: 4px;
   -webkit-app-region: no-drag; /* so hovering a dot shows its time */
 }
@@ -39,10 +41,10 @@
 
 .chart .hit { fill: transparent; cursor: default; }
 
-/* Fixed height so the Back button stays in the same place as on the calendar page. */
+/* Only as tall as its rows (up to 3, then it scrolls). */
 .legend {
   margin: 6px 12px 0;
-  height: 54px;
+  max-height: 54px;
   overflow-y: auto;
   text-align: left;
   font-size: 14px;

@@ -21,7 +21,6 @@ body {
 .close {
   position: absolute; top: 25px; right: 4px;
 }
-.close:hover { filter: brightness(0.95); }
 
 
 
@@ -64,9 +63,16 @@ body {
 
 button {
   border: none;
-  background: transparent;             
+  background: transparent;
   cursor: pointer;
+  transition: transform 0.12s ease;
 }
+
+/* 🔹 Hover: a little smaller and a little darker; pressing shrinks a bit more. */
+button:hover { transform: scale(0.92); }
+button:active { transform: scale(0.86); }
+button img { transition: filter 0.12s ease; }
+button:hover img { filter: brightness(0.8) drop-shadow(0 0 0.6px rgba(0, 0, 0, 0.8)); }
 
 button img {
   width: 50%;
@@ -97,6 +103,7 @@ margin-right: 10px;
   color: #111;
   padding: 2px 4px;
   opacity: 0.85;
+  transform-origin: left center; /* shrink toward the corner, not the middle */
 }
 .subject-btn:hover { opacity: 1; }
 
