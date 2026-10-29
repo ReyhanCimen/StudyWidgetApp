@@ -18,8 +18,18 @@ function formatHM(ms) {
 }
 
 
+// "chem 02:10 · math 01:05" — biggest first; time without a subject goes last.
+function dayBreakdown(dateKey, total) {
+  const day = Store.getSubjectTotals()[dateKey] || {};
+  const parts = Object.entries(day).sort((a, b) => b[1] - a[1]);
+  const rest = total - parts.reduce((sum, [, ms]) => sum + ms, 0);
+  if (rest >= 60000 || parts.length === 0) parts.push(['no subject', rest]);
+  return parts.map(([name, ms]) => `${name} ${formatHM(ms)}`).join(' · ');
+}
+
 function renderCalendar() {
   calendar.innerHTML = '';
+  Tip.hide();
 
   const year = current.getFullYear();
   const month = current.getMonth();
@@ -58,6 +68,10 @@ function renderCalendar() {
       time.className = 'time';
       time.textContent = formatHM(totals[dateKey]);
       cell.appendChild(time);
+
+      cell.classList.add('studied');
+      cell.addEventListener('mouseenter', () => Tip.show(cell, dayBreakdown(dateKey, totals[dateKey])));
+      cell.addEventListener('mouseleave', Tip.hide);
     }
 
     calendar.appendChild(cell);
@@ -86,6 +100,11 @@ monthTitle.addEventListener('dblclick', () => {
   current = new Date();
   renderCalendar();
 });
+
+// Computer sleeps or locks while this page is open → pause the saved timer.
+window.api?.onPause?.(Store.pauseSavedSession);
+// Leaving this page (back to the widget, or closing the app): save the running time.
+window.addEventListener('beforeunload', () => Store.flushSavedSession());
 
 document.getElementById('btnStats').addEventListener('click', () => {
   window.api?.navigate?.('stats');

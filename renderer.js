@@ -46,12 +46,13 @@ const currentMs = () => sessionMs + (running ? Date.now() - lastMark : 0);
 // Save the running time so far to today (and to the current subject).
 // Saving as we go means time isn't lost on a crash, and studying past
 // midnight lands on the right day.
-function commit() {
+function commit(upTo = Date.now()) {
   if (!running) return;
-  const now = Date.now();
-  Store.addTime(now - lastMark, currentSubject);
-  sessionMs += now - lastMark;
-  lastMark = now;
+  const delta = upTo - lastMark;
+  if (delta <= 0) return;
+  Store.addTime(delta, currentSubject);
+  sessionMs += delta;
+  lastMark = upTo;
 }
 
 // --- Animasyon
@@ -76,15 +77,21 @@ function start(since = Date.now()) {
   btnStartImg.src = 'assets/Pause.png';
   startAnim();
 
+  let lastTick = Date.now();
   tickTimer = setInterval(() => {
-    if (Date.now() - lastMark >= 5000) commit();
+    const now = Date.now();
+    // Backup for a missed sleep event: a long gap between ticks means the
+    // computer was asleep, so stop at the last tick and don't count the gap.
+    if (now - lastTick > 2 * 60 * 1000) { stop(lastTick); return; }
+    lastTick = now;
+    if (now - lastMark >= 5000) commit();
     updateClock(currentMs());
   }, 200);
   updateClock(currentMs());
 }
 
-function stop() {
-  commit();
+function stop(at = Date.now()) {
+  commit(at);
   running = false;
   if (tickTimer) { clearInterval(tickTimer); tickTimer = null; }
   btnStart.classList.remove('stop');
@@ -134,12 +141,57 @@ function renderSubjectList() {
     });
 
     row.append(dot, name, del);
+
+    // Single click selects; double-click renames. The short wait lets a
+    // double-click cancel the select (which would close the menu).
+    let clickTimer = null;
     row.addEventListener('click', () => {
-      selectSubject(s.name);
-      closeMenu();
+      if (row.classList.contains('editing')) return;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => {
+        selectSubject(s.name);
+        closeMenu();
+      }, 220);
+    });
+    row.addEventListener('dblclick', () => {
+      clearTimeout(clickTimer);
+      startRename(row, name, s.name);
     });
     subjectList.appendChild(row);
   }
+}
+
+function startRename(row, nameEl, oldName) {
+  if (row.classList.contains('editing')) return;
+  row.classList.add('editing');
+
+  const input = document.createElement('input');
+  input.className = 'rename-input';
+  input.maxLength = 16;
+  input.value = oldName;
+  nameEl.replaceWith(input);
+  input.focus();
+  input.select();
+
+  let done = false;
+  const finish = (save) => {
+    if (done) return;
+    done = true;
+    if (save && Store.renameSubject(oldName, input.value)) {
+      if (currentSubject === oldName) {
+        currentSubject = Store.getCurrentSubject();
+        renderSubjectBtn();
+      }
+    }
+    renderSubjectList();
+  };
+
+  input.addEventListener('keydown', (e) => {
+    e.stopPropagation();
+    if (e.key === 'Enter') finish(true);
+    else if (e.key === 'Escape') finish(false);
+  });
+  input.addEventListener('blur', () => finish(true));
 }
 
 function openMenu() {
@@ -191,6 +243,11 @@ function restoreSession() {
 window.addEventListener('beforeunload', () => {
   commit();
   sessionStorage.setItem('session', JSON.stringify({ ms: sessionMs, running, at: Date.now() }));
+});
+
+// --- Computer sleeps or screen locks → pause
+window.api?.onPause?.((at) => {
+  if (running) stop(at);
 });
 
 // --- Event listeners

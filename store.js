@@ -63,6 +63,31 @@
     return STYLES[(i >= 0 ? i : fallbackIndex) % STYLES.length];
   }
 
+  // Rename a subject everywhere, including its saved study time.
+  // Returns false if the new name is empty or another subject already has it.
+  function renameSubject(oldName, newName) {
+    newName = newName.trim();
+    if (!newName || newName === oldName) return false;
+    const subjects = getSubjects();
+    if (subjects.some((s) => s.name !== oldName && s.name.toLowerCase() === newName.toLowerCase())) return false;
+
+    const subject = subjects.find((s) => s.name === oldName);
+    if (!subject) return false;
+    subject.name = newName;
+    write('subjects', subjects);
+
+    const bySubject = read('subjectTotals', {});
+    for (const day of Object.values(bySubject)) {
+      if (day[oldName] === undefined) continue;
+      day[newName] = (day[newName] || 0) + day[oldName];
+      delete day[oldName];
+    }
+    write('subjectTotals', bySubject);
+
+    if (localStorage.getItem('currentSubject') === oldName) setCurrentSubject(newName);
+    return true;
+  }
+
   // --- Study time
   function addTime(ms, subject) {
     if (!(ms > 0)) return;
@@ -80,8 +105,25 @@
     }
   }
 
+  // The widget page saves its running timer here while you look at the calendar or graph.
+  // This saves the study time up to `at`, so nothing is lost if the app closes from those pages.
+  function flushSavedSession(at = Date.now(), keepRunning = true) {
+    let session = null;
+    try { session = JSON.parse(sessionStorage.getItem('session')); } catch {}
+    if (!session?.running) return;
+    const delta = Math.max(0, at - session.at);
+    addTime(delta, getCurrentSubject());
+    sessionStorage.setItem('session', JSON.stringify({ ms: session.ms + delta, running: keepRunning, at }));
+  }
+
+  // Computer sleeps while the calendar or graph is open: save up to `at` and pause.
+  const pauseSavedSession = (at = Date.now()) => flushSavedSession(at, false);
+
   window.Store = {
     two,
+    renameSubject,
+    flushSavedSession,
+    pauseSavedSession,
     dayKey,
     getSubjects,
     addSubject,

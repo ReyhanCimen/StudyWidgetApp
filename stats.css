@@ -39,21 +39,6 @@
 
 .chart .hit { fill: transparent; cursor: default; }
 
-.data-container { position: relative; }
-
-.tip {
-  position: absolute;
-  z-index: 5;
-  pointer-events: none;
-  white-space: nowrap;
-  background: #e6e6e6;
-  border: 1px solid #333;
-  border-radius: 6px;
-  padding: 1px 6px;
-  font-size: 12px;
-}
-.tip.hidden { display: none; }
-
 /* Fixed height so the Back button stays in the same place as on the calendar page. */
 .legend {
   margin: 6px 12px 0;

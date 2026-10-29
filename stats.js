@@ -4,9 +4,6 @@ const legend = document.getElementById('legend');
 const viewButtons = document.querySelectorAll('.view-toggle button');
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const tip = document.getElementById('tip');
-const container = document.querySelector('.data-container');
-
 const W = 300, H = 220;
 const PAD = { left: 28, right: 8, top: 8, bottom: 18 };
 const HOUR = 3600 * 1000;
@@ -78,18 +75,6 @@ function buildSeries(dates) {
     .sort((a, b) => b.total - a.total);
 }
 
-// --- Hover tooltip
-function showTip(dot, text) {
-  tip.textContent = text;
-  tip.classList.remove('hidden');
-  const d = dot.getBoundingClientRect();
-  const c = container.getBoundingClientRect();
-  const left = d.left + d.width / 2 - c.left - tip.offsetWidth / 2;
-  tip.style.left = `${Math.max(2, Math.min(left, c.width - tip.offsetWidth - 2))}px`;
-  tip.style.top = `${d.top - c.top - tip.offsetHeight - 4}px`;
-}
-const hideTip = () => tip.classList.add('hidden');
-
 function render() {
   viewButtons.forEach((b) => b.classList.toggle('active', b.dataset.view === view));
 
@@ -109,7 +94,7 @@ function render() {
   const y = (ms) => H - PAD.bottom - (Math.min(ms / HOUR, Y_MAX) / Y_MAX) * (H - PAD.top - PAD.bottom);
 
   chart.innerHTML = '';
-  hideTip();
+  Tip.hide();
 
   // Grid + y labels: 0, 3h, 6h ... 18h
   for (let h = 0; h <= Y_MAX; h += Y_STEP) {
@@ -150,11 +135,11 @@ function render() {
       const hit = svg('circle', { class: 'hit', cx: x(i), cy: y(ms), r: 8 });
       hit.addEventListener('mouseenter', () => {
         dot.setAttribute('r', 4);
-        showTip(dot, `${s.name} · ${formatHM(ms)}`);
+        Tip.show(dot, `${s.name} · ${formatHM(ms)}`);
       });
       hit.addEventListener('mouseleave', () => {
         dot.setAttribute('r', 2.5);
-        hideTip();
+        Tip.hide();
       });
     }
   }
@@ -207,6 +192,11 @@ viewButtons.forEach((b) => b.addEventListener('click', () => {
   if (anchor.getFullYear() === now.getFullYear() && anchor.getMonth() === now.getMonth()) anchor = now;
   render();
 }));
+
+// Computer sleeps or locks while this page is open → pause the saved timer.
+window.api?.onPause?.(Store.pauseSavedSession);
+// Leaving this page (back to the widget, or closing the app): save the running time.
+window.addEventListener('beforeunload', () => Store.flushSavedSession());
 
 document.getElementById('btnBack').addEventListener('click', () => {
   window.api?.navigate?.('data');

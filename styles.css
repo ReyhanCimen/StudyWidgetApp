@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Scribblybold';
-  src: url('assets/fonts/Scribblybold.ttf') format('truetype');
+  src: url('assets/fonts/Scribblybold-Regular.ttf.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -127,6 +127,19 @@ margin-right: 10px;
 .subject-row .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
 .subject-row .name { flex: 1; }
 .subject-row .del { opacity: 0.35; padding: 0 2px; }
+.subject-row.editing { cursor: text; }
+.subject-row.editing .del { display: none; }
+.rename-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: #111;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed #777;
+  outline: none;
+  padding: 0;
+}
 .subject-row .del:hover { opacity: 1; }
 
 .subject-input {

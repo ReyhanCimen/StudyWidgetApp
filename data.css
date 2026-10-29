@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Scribbly';
-  src: url('assets/fonts/Scribblybold-Regular.ttf') format('truetype');
+  src: url('assets/fonts/Scribblybold-Regular.ttf.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -96,6 +96,27 @@ body {
   color: #222;
   margin-top: 1px;
 }
+
+/* 🔹 days need mouse events for the hover breakdown */
+.calendar { -webkit-app-region: no-drag; }
+.day.studied:hover { background: #dadada; }
+
+/* --- Hover tooltip (calendar + graph) --- */
+.data-container { position: relative; }
+
+.tip {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  max-width: 290px;
+  background: #e6e6e6;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 12px;
+  text-align: left;
+}
+.tip.hidden { display: none; }
 
 /* --- Footer --- */
 .footer {
